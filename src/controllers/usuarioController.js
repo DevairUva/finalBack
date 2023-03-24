@@ -10,7 +10,7 @@ function UsuarioController(app){
         filename: './src/infra/bd.db',
         driver: sqlite3.Database
       })
-      const result = await db.all('SELECT * FROM usuario')
+      const result = await db.all('SELECT * FROM usuarios')
       res.send(result)
       db.close()
     })()
