@@ -29,6 +29,19 @@ function UsuarioController(app){
     })()
   }
 
+  app.get('/tarefas', exibirTarefas)
+  function exibirTarefas (req, res){
+    (async () =>{
+      const db = await open({
+        filename: './src/infra/bdTarefas.db',
+        driver: sqlite3.Database
+      })
+      const result = await db.all('SELECT * FROM Usuario')
+      res.send(result)
+      db.close()
+    })()
+  }
+
 }
 
 export default UsuarioController
