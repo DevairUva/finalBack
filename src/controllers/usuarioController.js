@@ -29,7 +29,7 @@ function UsuarioController(app){
     })()
   }
 
-  app.get('/tarefas', exibirTarefas)
+  app.get('/tarefa', exibirTarefas)
   function exibirTarefas (req, res){
     (async () =>{
       const db = await open({
