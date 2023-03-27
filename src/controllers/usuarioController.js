@@ -28,6 +28,18 @@ function UsuarioController(app){
       db.close()
     })()
   }
+  app.get('/polo/:polo', exibirPolos)
+  function exibirPolos (req, res){
+    (async () =>{
+      const db = await open({
+        filename: './src/infra/bd.db',
+        driver: sqlite3.Database
+      })
+      const result = await db.all('SELECT * FROM polos where id_polo like ?', req.params.polo)
+      res.send(result)
+      db.close()
+    })()
+  }
 
   app.get('/tarefa', exibirTarefas)
   function exibirTarefas (req, res){
@@ -36,7 +48,7 @@ function UsuarioController(app){
         filename: './src/infra/bdTarefas.db',
         driver: sqlite3.Database
       })
-      const result = await db.all('SELECT * FROM Usuario')
+      const result = await db.all('SELECT * FROM Tecnologia')
       res.send(result)
       db.close()
     })()
