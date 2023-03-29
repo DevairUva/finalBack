@@ -10,7 +10,7 @@ function PolosController(app) {
         filename: './src/infra/bd.db',
         driver: sqlite3.Database
       })
-      const result = await db.all('SELECT * FROM usuarios')
+      const result = await db.all('SELECT * FROM polos')
       res.send(result)
       db.close()
     })()
