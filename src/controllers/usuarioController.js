@@ -16,43 +16,31 @@ function UsuarioController(app){
     })()
   }
 
-  app.get('/polo', exibirPolos)
-  function exibirPolos (req, res){
-    (async () =>{
+  app.post('/usuario', postUsuario)
+  function postUsuario(req, res){
+    (async () => {
       const db = await open({
         filename: './src/infra/bd.db',
         driver: sqlite3.Database
       })
-      const result = await db.all('SELECT * FROM polos')
-      res.send(result)
-      db.close()
-    })()
-  }
-  app.get('/polo/:polo', exibirPolos)
-  function exibirPolos (req, res){
-    (async () =>{
-      const db = await open({
-        filename: './src/infra/bd.db',
-        driver: sqlite3.Database
-      })
-      const result = await db.all('SELECT * FROM polos where id_polo like ?', req.params.polo)
-      res.send(result)
+      await db.run(`INSERT INTO usuarios(nome, email, senha) VALUES(?, ?, ?)`, req.body.nome, req.body.email, req.body.senha)
+      res.send(`Usuário ${req.boddy.nome} inserido`)
       db.close()
     })()
   }
 
-  app.get('/tarefa', exibirTarefas)
-  function exibirTarefas (req, res){
-    (async () =>{
-      const db = await open({
-        filename: './src/infra/bdTarefas.db',
-        driver: sqlite3.Database
-      })
-      const result = await db.all('SELECT * FROM Tecnologia')
-      res.send(result)
-      db.close()
-    })()
-  }
+  // app.get('/tarefa', exibirTarefas)
+  // function exibirTarefas (req, res){
+  //   (async () =>{
+  //     const db = await open({
+  //       filename: './src/infra/bdTarefas.db',
+  //       driver: sqlite3.Database
+  //     })
+  //     const result = await db.all('SELECT * FROM Tecnologia')
+  //     res.send(result)
+  //     db.close()
+  //   })()
+  // }
 
 }
 
