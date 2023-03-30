@@ -24,7 +24,7 @@ function UsuarioController(app){
         driver: sqlite3.Database
       })
       await db.run(`INSERT INTO usuarios(nome, email, senha) VALUES(?, ?, ?)`, req.body.nome, req.body.email, req.body.senha)
-      res.send(`Usuário ${req.boddy.nome} inserido`)
+      res.send(`Usuário ${req.body.nome} inserido`)
       db.close()
     })()
   }
