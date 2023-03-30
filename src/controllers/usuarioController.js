@@ -47,20 +47,24 @@ function UsuarioController(app) {
     })()
   }
 
+  app.delete('/usuario/id/:id', Excluir)
+  function Excluir(req, res){
+    (async () =>{
+      const db = await open({
+        filename: './src/infra/bd.db',
+        driver: sqlite3.Database
+      })
+      const result = await db.all('SELECT * FROM usuarios where id_usuario like ?', req.params.id)
+      if(result != ''){
+        res.send(`Usuário ${req.params.id} excluido`)
+        await db.run('DELETE from usuarios WHERE id_usuario= ?', req.params.id)
+      } else {
+        res.send(`Usuário não encontrado`)
+      }
+      db.close()
+    })()
+  }
+
 }
 
 export default UsuarioController
-
-
-  // app.get('/tarefa', exibirTarefas)
-  // function exibirTarefas (req, res){
-  //   (async () =>{
-  //     const db = await open({
-  //       filename: './src/infra/bdTarefas.db',
-  //       driver: sqlite3.Database
-  //     })
-  //     const result = await db.all('SELECT * FROM Tecnologia')
-  //     res.send(result)
-  //     db.close()
-  //   })()
-  // }
